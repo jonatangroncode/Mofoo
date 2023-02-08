@@ -6,10 +6,19 @@
 //
 
 import SwiftUI
+import Firebase
 
 @main
 
+
+
 struct MofooApp: App {
+    
+    init(){
+        FirebaseApp.configure()
+    }
+
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
