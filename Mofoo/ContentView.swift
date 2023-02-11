@@ -14,22 +14,63 @@ struct ContentView: View {
     @State var post = [Posts]()
     
     var body: some View {
-        List(post){ entry in
-            Text(entry.recipe)
-        }
-        .onAppear() {
-            self.listenToFirestore()
-//            self.saveToFirestore(recipe: "pannkakor", ingredience: ["mjölk", "mjöl"], instructions: "blanda och stek")
-        }
-    }
+        NavigationView {
+                  VStack {
+                      List {
+                          ForEach(post, id: \.id) { post in
+                              Text(post.recipe)
+                          }
+                          .onDelete(perform: deletePost)
+                      }
+                      .navigationBarTitle("Recept")
+                      .navigationBarItems(trailing: NavigationLink(destination: RecipeBook()) {
+                          Image(systemName: "plus.circle")
+                      })
+                      
+                      VStack{
+                                   HStack {
+                                       Button("Redigera") {
+                                           print("hej")
+                                       }
+                                       .padding()
+                                       Button("Lägg till") {
+                                           }
+                                       
+                                       }
+                                   }
+
+                  }
+              }
+              .background(Color.green)
+              .onAppear() {
+                  self.listenToFirestore()
+              }
+       
+          }
+
+    
+    func deletePost(indexSet: IndexSet) {
+           for index in indexSet {
+               let item = post[index]
+               db.collection("post").document(item.id).delete()
+               post.remove(at: index)
+           }
+       }
     
     func saveToFirestore(recipe: String, ingredience: [String], instructions: String) {
         let post = Posts(id: UUID().uuidString, recipe: recipe, ingredience: ingredience, instructions: instructions)
-            
-        db.collection("post").addDocument(data: ["recipe" : post.recipe,
-                                                 "ingredience" : post.ingredience,
-                                                 "instructions" : post.instructions,
-                                                 "date" : post.date])
+        
+        do{
+          _ = try db.collection("post").addDocument(from: post)
+        }catch {
+            print ("Error saving to db")
+        }
+        
+        
+//        db.collection("post").addDocument(data: ["recipe" : post.recipe,
+//                                                 "ingredience" : post.ingredience,
+//                                                 "instructions" : post.instructions,
+//                                                 "date" : post.date])
     }
     
     func listenToFirestore(){

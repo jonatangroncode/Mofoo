@@ -5,6 +5,7 @@
 //  Created by Jonatan Grön on 2023-02-07.
 //
 import Foundation
+import FirebaseFirestoreSwift
 
 
 //let foodpost = Posts(id: <#String#>, recipe: "hej", ingredience: ["salt", "Ost"], instructions: "koka 10 min")

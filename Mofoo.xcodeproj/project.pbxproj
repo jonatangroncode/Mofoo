@@ -20,6 +20,7 @@
 		5AAA85D02993289000FF7B80 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5AAA85CF2993289000FF7B80 /* FirebaseFirestore */; };
 		5AAA85D22993289000FF7B80 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5AAA85D12993289000FF7B80 /* FirebaseFirestoreSwift */; };
 		5AAA85D42993289000FF7B80 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 5AAA85D32993289000FF7B80 /* FirebaseFunctions */; };
+		5AAA85DA299719F700FF7B80 /* RecipeBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAA85D9299719F700FF7B80 /* RecipeBook.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		5A3DD03029925EA000727880 /* MofooUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MofooUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5A3DD03D299266D700727880 /* Posts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Posts.swift; sourceTree = "<group>"; };
 		5AAA85C92993250200FF7B80 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5AAA85D9299719F700FF7B80 /* RecipeBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeBook.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				5AAA85C92993250200FF7B80 /* GoogleService-Info.plist */,
 				5A3DD01929925E9F00727880 /* Preview Content */,
 				5A3DD03D299266D700727880 /* Posts.swift */,
+				5AAA85D9299719F700FF7B80 /* RecipeBook.swift */,
 			);
 			path = Mofoo;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 			files = (
 				5A3DD01629925E9F00727880 /* ContentView.swift in Sources */,
 				5A3DD03E299266D700727880 /* Posts.swift in Sources */,
+				5AAA85DA299719F700FF7B80 /* RecipeBook.swift in Sources */,
 				5A3DD01429925E9F00727880 /* MofooApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
