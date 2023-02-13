@@ -6,10 +6,28 @@
 //
 
 import SwiftUI
+import Firebase
+import FirebaseFirestoreSwift
 
 struct RecipeBook: View {
+    
+    @State var search = ""
+    
+    @ObservedObject var data = getData()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        NavigationView {
+            List {
+                ForEach(self.data.datas.filter{(self.search.isEmpty ? true : $0.recipe.localizedCaseInsensitiveContains(self.search))}, id: \.id) { rs in
+                    Text(rs.recipe)
+                    
+                }
+            }
+            .navigationTitle("Sök Recept")
+                .searchable(text: $search)
+        }
+        
     }
 }
 

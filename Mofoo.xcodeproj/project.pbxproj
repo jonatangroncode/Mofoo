@@ -21,6 +21,7 @@
 		5AAA85D22993289000FF7B80 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5AAA85D12993289000FF7B80 /* FirebaseFirestoreSwift */; };
 		5AAA85D42993289000FF7B80 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 5AAA85D32993289000FF7B80 /* FirebaseFunctions */; };
 		5AAA85DA299719F700FF7B80 /* RecipeBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAA85D9299719F700FF7B80 /* RecipeBook.swift */; };
+		5AAA85DC299820E300FF7B80 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAA85DB299820E300FF7B80 /* Model.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		5A3DD03D299266D700727880 /* Posts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Posts.swift; sourceTree = "<group>"; };
 		5AAA85C92993250200FF7B80 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5AAA85D9299719F700FF7B80 /* RecipeBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeBook.swift; sourceTree = "<group>"; };
+		5AAA85DB299820E300FF7B80 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 				5A3DD01929925E9F00727880 /* Preview Content */,
 				5A3DD03D299266D700727880 /* Posts.swift */,
 				5AAA85D9299719F700FF7B80 /* RecipeBook.swift */,
+				5AAA85DB299820E300FF7B80 /* Model.swift */,
 			);
 			path = Mofoo;
 			sourceTree = "<group>";
@@ -284,6 +287,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AAA85DC299820E300FF7B80 /* Model.swift in Sources */,
 				5A3DD01629925E9F00727880 /* ContentView.swift in Sources */,
 				5A3DD03E299266D700727880 /* Posts.swift in Sources */,
 				5AAA85DA299719F700FF7B80 /* RecipeBook.swift in Sources */,

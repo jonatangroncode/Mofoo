@@ -39,6 +39,7 @@ struct ContentView: View {
                                        }
                                    }
 
+
                   }
               }
               .background(Color.green)
@@ -47,6 +48,7 @@ struct ContentView: View {
               }
        
           }
+
 
     
     func deletePost(indexSet: IndexSet) {
@@ -95,6 +97,9 @@ struct ContentView: View {
         }
     }
 }
+
+
+
 
 
 
