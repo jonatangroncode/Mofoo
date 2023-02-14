@@ -15,41 +15,40 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-                  VStack {
-                      List {
-                          ForEach(post, id: \.id) { post in
-                              Text(post.recipe)
-                          }
-                          .onDelete(perform: deletePost)
-                      }
-                      .navigationBarTitle("Recept")
-                      .navigationBarItems(trailing: NavigationLink(destination: RecipeBook()) {
-                          Image(systemName: "plus.circle")
-                      })
-                      
-                      VStack{
-                                   HStack {
-                                       Button("Redigera") {
-                                           print("hej")
-                                       }
-                                       .padding()
-                                       Button("Lägg till") {
-                                           }
-                                       
-                                       }
-                                   }
+               VStack {
+                   List {
+                       ForEach(post, id: \.id) { post in
+                           Text(post.recipe)
+                       }
+                       .onDelete(perform: deletePost)
+                   }
+                   .navigationBarTitle("Recept")
+                   .navigationBarItems(trailing: NavigationLink(destination: RecipeBook()) {
+                       Image(systemName: "plus.circle")
+                       
+                       
+                       
+                       
+                   })
+          
+                       HStack {
+                           NavigationLink(destination: AddRecipe()) {
+                               Text("Redigera")
+                           }
+                           .padding()
+                           NavigationLink(destination: AddRecipe()) {
+                               Text("Lägg till")
 
-
-                  }
-              }
-              .background(Color.green)
-              .onAppear() {
-                  self.listenToFirestore()
-              }
-       
-          }
-
-
+                           
+                       }
+                   }
+               }
+           }
+           .background(Color.green)
+           .onAppear() {
+               self.listenToFirestore()
+           }
+       }
     
     func deletePost(indexSet: IndexSet) {
            for index in indexSet {
