@@ -15,6 +15,8 @@
 		5A3DD02F29925EA000727880 /* MofooUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3DD02E29925EA000727880 /* MofooUITests.swift */; };
 		5A3DD03129925EA000727880 /* MofooUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3DD03029925EA000727880 /* MofooUITestsLaunchTests.swift */; };
 		5A3DD03E299266D700727880 /* Posts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3DD03D299266D700727880 /* Posts.swift */; };
+		5A860A8B299BB9F60052F762 /* Pantry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A860A8A299BB9F60052F762 /* Pantry.swift */; };
+		5A860A8D29A166DC0052F762 /* RecipeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A860A8C29A166DC0052F762 /* RecipeViewModel.swift */; };
 		5AAA85CA2993250200FF7B80 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5AAA85C92993250200FF7B80 /* GoogleService-Info.plist */; };
 		5AAA85CE2993289000FF7B80 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5AAA85CD2993289000FF7B80 /* FirebaseAuth */; };
 		5AAA85D02993289000FF7B80 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5AAA85CF2993289000FF7B80 /* FirebaseFirestore */; };
@@ -54,6 +56,8 @@
 		5A3DD02E29925EA000727880 /* MofooUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MofooUITests.swift; sourceTree = "<group>"; };
 		5A3DD03029925EA000727880 /* MofooUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MofooUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5A3DD03D299266D700727880 /* Posts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Posts.swift; sourceTree = "<group>"; };
+		5A860A8A299BB9F60052F762 /* Pantry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pantry.swift; sourceTree = "<group>"; };
+		5A860A8C29A166DC0052F762 /* RecipeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewModel.swift; sourceTree = "<group>"; };
 		5AAA85C92993250200FF7B80 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5AAA85D9299719F700FF7B80 /* RecipeBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeBook.swift; sourceTree = "<group>"; };
 		5AAA85DB299820E300FF7B80 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
@@ -121,6 +125,8 @@
 				5AAA85D9299719F700FF7B80 /* RecipeBook.swift */,
 				5AAA85DB299820E300FF7B80 /* Model.swift */,
 				5AAA85DD299AD60100FF7B80 /* AddRecipe.swift */,
+				5A860A8A299BB9F60052F762 /* Pantry.swift */,
+				5A860A8C29A166DC0052F762 /* RecipeViewModel.swift */,
 			);
 			path = Mofoo;
 			sourceTree = "<group>";
@@ -294,6 +300,8 @@
 				5A3DD01629925E9F00727880 /* ContentView.swift in Sources */,
 				5A3DD03E299266D700727880 /* Posts.swift in Sources */,
 				5AAA85DE299AD60100FF7B80 /* AddRecipe.swift in Sources */,
+				5A860A8D29A166DC0052F762 /* RecipeViewModel.swift in Sources */,
+				5A860A8B299BB9F60052F762 /* Pantry.swift in Sources */,
 				5AAA85DA299719F700FF7B80 /* RecipeBook.swift in Sources */,
 				5A3DD01429925E9F00727880 /* MofooApp.swift in Sources */,
 			);

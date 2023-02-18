@@ -33,12 +33,12 @@ struct ContentView: View {
           
                        HStack {
                            NavigationLink(destination: AddRecipe()) {
-                               Text("Redigera")
+                               Text("Lägg till recept")
                            }
                            .padding()
-                           NavigationLink(destination: AddRecipe()) {
-                               Text("Lägg till")
-
+                           NavigationLink(destination: Pantry()) {
+                               Text("Skafferi")
+                                   .padding(50)
                            
                        }
                    }
