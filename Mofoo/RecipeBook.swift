@@ -10,70 +10,52 @@ import Firebase
 import FirebaseFirestoreSwift
 
 struct RecipeBook: View {
-    
     @State var search = ""
-    
-    @ObservedObject var data = getData()
-    
+    @ObservedObject var viewModel = RecipeViewModel()
+
     var body: some View {
-        
         NavigationView {
             List {
-                ForEach(self.data.datas.filter{(self.search.isEmpty ? true : $0.recipe.localizedCaseInsensitiveContains(self.search))}, id: \.id) { rs in
-                    
-                    NavigationLink(destination: Detail(data: rs)) {
-                        Text(rs.recipe)
+                ForEach(self.viewModel.recipes.filter{(self.search.isEmpty ? true : $0.title.localizedCaseInsensitiveContains(self.search))}, id: \.id) { recipe in
+                    NavigationLink(destination: RecipeDetail(recipe: recipe)) {
+                        Text(recipe.title)
                     }
                 }
             }
             .navigationTitle("Sök Recept")
-                .searchable(text: $search)
+            .searchable(text: $search)
+            .onAppear {
+                self.viewModel.getRecipes()
+            }
         }
-        
-        
-        
-        
-        
-        
     }
 }
 
+struct RecipeDetail: View {
+    var recipe: Recipe
 
-
-struct Detail : View {
-    
-    var data : Posts
-    
     var body: some View{
-        
-        VStack{
-            Text(data.recipe)
+        VStack {
+            Text(recipe.title)
                 .font(.title)
                 .fontWeight(.bold)
                 .padding(10)
             Text("Ingredienser")
                 .padding(10)
                 .fontWeight(.bold)
-            HStack{
-                ForEach(data.ingredience ?? [], id: \.self) { ingredient in
-                    Text(ingredient + ",") 
+            HStack {
+                ForEach(recipe.ingredients, id: \.id) { ingredient in
+                    Text("\(ingredient.title) \(ingredient.amount) \(ingredient.unit)")
                 }
-                    
             }
-            
             Text("Instruktioner")
                 .padding(10)
                 .fontWeight(.bold)
-            Text(data.instructions)
+            Text(recipe.instructions)
                 .padding(10)
-            Button("Lägg till"){
-                           
-                       }
-            
+            Button("Lägg till") {
+                // Add your action here
+            }
         }
-    
-           
-        
     }
-    
 }

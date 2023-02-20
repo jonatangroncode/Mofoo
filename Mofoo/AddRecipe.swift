@@ -83,8 +83,7 @@ struct AddRecipe: View {
             }
             TextField("Skriv dina Instruktioner", text: $recipeInstructions)
 
-                .padding(50)
-            Button("Lägg till Recept") {
+                        Button("Lägg till Recept") {
                 let recipe = Recipe(id: UUID().uuidString, title: recipeTitle, instructions: recipeInstructions, ingredients: ingredients)
                 viewModel.addRecipe(title: recipe.title, instructions: recipe.instructions, ingredients: recipe.ingredients)
             }
