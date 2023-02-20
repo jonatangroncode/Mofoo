@@ -39,11 +39,26 @@ class RecipeViewModel: ObservableObject {
     
     func addRecipe(title: String, instructions: String, ingredients: [Ingredient]) {
         let newRecipe = Recipe(id: UUID().uuidString, title: title, instructions: instructions, ingredients: ingredients)
-        let recipeData = ["title": title, "instructions": instructions]
+        var recipeData = ["title": title, "instructions": instructions]
+        let recipeRef = db.collection("recipes").document(newRecipe.id)
 
-        db.collection("recipes").addDocument(data: recipeData) { error in
+        // Add ingredients as a subcollection to the recipe document
+        for ingredient in ingredients {
+            let ingredientData: [String: Any] = [
+                "title": ingredient.title,
+                "amount": ingredient.amount,
+                "unit": ingredient.unit
+            ]
+            recipeRef.collection("ingredients").document(ingredient.id).setData(ingredientData) { error in
+                if let error = error {
+                    print("Error adding ingredient: \(error)")
+                }
+            }
+        }
+
+        recipeRef.setData(recipeData) { error in
             if let error = error {
-                print("Error adding document: \(error)")
+                print("Error adding recipe: \(error)")
             } else {
                 print("Recipe added")
                 self.getRecipes()
