@@ -22,9 +22,9 @@ struct ContentView: View {
                        }
                        .onDelete(perform: deletePost)
                    }
-                   .navigationBarTitle("Recept")
+                   .navigationBarTitle("Recipes")
                    .navigationBarItems(trailing: NavigationLink(destination: RecipeBook()) {
-                       Image(systemName: "plus.circle")
+                       Image(systemName: "magnifyingglass")
                        
                        
                        

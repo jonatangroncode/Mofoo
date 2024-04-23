@@ -9,6 +9,7 @@ import SwiftUI
 import FirebaseFirestore
 
 
+//AddRecipe provides a user-friendly interface for adding new recipes, allowing users to input recipe details step by step. It covers essential aspects such as recipe title, ingredients with amounts and units, instructions, and a way to add the recipe to the app's data model through the viewModel
 
 struct AddRecipe: View {
     @State private var recipeTitle = ""
@@ -18,29 +19,25 @@ struct AddRecipe: View {
     @State private var ingredientUnit = "Gram"
     @State private var ingredients = [Ingredient]()
     @ObservedObject var viewModel = RecipeViewModel()
-    var units = ["Gram", "Liter", "ML", "Deciliter"]
+    var units = ["Gram",  "Mililiter", "Deciliter","Liter", "Antal"]
     @State private var selectedUnit = "Gram"
 
     var body: some View {
         VStack {
-            Text("Lägg till nytt recept")
-                .fontWeight(.bold)
-                .font(.title)
-                .padding(10)
-
+     
             HStack {
-                Text("Recept")
+                Text("Recept:")
                     .fontWeight(.bold)
                 Spacer()
             }
             TextField("Skriv ditt recept", text: $recipeTitle)
 
             HStack {
-                Text("Ingridienser")
+                Text("Ingridienser:")
                     .fontWeight(.bold)
                 Spacer()
             }
-            HStack {
+            VStack {
                 TextField("Skriv dina ingredienser", text: $ingredientTitle)
 
                 VStack {
@@ -77,16 +74,33 @@ struct AddRecipe: View {
             .frame(height: 250)
 
             HStack {
-                Text("Instruktioner")
+                Text("Instruktioner:")
                     .fontWeight(.bold)
                 Spacer()
             }
-            TextField("Skriv dina Instruktioner", text: $recipeInstructions)
-
-                        Button("Lägg till Recept") {
+            VStack {
+                if recipeInstructions.isEmpty {
+                    Text("Skriv dina instruktioner här")
+                        .foregroundColor(.gray)
+                        .padding(.horizontal)
+                  
+                }
+                TextEditor(text: $recipeInstructions)
+                    .frame(minHeight: 100)
+            }
+            
+            Button("Lägg till Recept") {
                 let recipe = Recipe(id: UUID().uuidString, title: recipeTitle, instructions: recipeInstructions, ingredients: ingredients)
                 viewModel.addRecipe(title: recipe.title, instructions: recipe.instructions, ingredients: recipe.ingredients)
+                
+                // Rensa texterna
+                recipeTitle = ""
+                recipeInstructions = ""
+                ingredientTitle = ""
+                ingredientAmount = ""
+                ingredients = []
             }
-        }
+        }.navigationTitle("Add recipe")
+
     }
 }

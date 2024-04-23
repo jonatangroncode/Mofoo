@@ -9,6 +9,8 @@ import SwiftUI
 import Firebase
 import FirebaseFirestoreSwift
 
+//Page where all recipes are showed, you can search for recipes and clickon the recipes to navigate to the detailpage of a specific recipe of the recipe
+
 struct RecipeBook: View {
     @State var search = ""
     @ObservedObject var viewModel = RecipeViewModel()
@@ -30,6 +32,10 @@ struct RecipeBook: View {
         }
     }
 }
+
+
+
+// where you get navigated to when you want to know the specifics of a recipe
 
 struct RecipeDetail: View {
     var recipe: Recipe

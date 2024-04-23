@@ -5,17 +5,19 @@
 //  Created by Jonatan Grön on 2023-02-18.
 //
 
+//RecipeViewModel provides functionality for adding and retrieving recipes from Firestore, ensuring synchronization between the local app state and the database. It encapsulates the logic for managing recipe data, making it easier to maintain and interact with recipe-related functionality in the application.
+
 import SwiftUI
 import FirebaseFirestore
 
-struct Recipe: Identifiable {
+struct Recipe: Identifiable, Codable {
     var id: String 
     var title: String
     var instructions: String
     var ingredients: [Ingredient]
 }
 
-struct Ingredient: Identifiable, Equatable {
+struct Ingredient: Identifiable, Equatable, Codable {
     var id: String
     var title: String
     var amount: Double
@@ -39,7 +41,7 @@ class RecipeViewModel: ObservableObject {
     
     func addRecipe(title: String, instructions: String, ingredients: [Ingredient]) {
         let newRecipe = Recipe(id: UUID().uuidString, title: title, instructions: instructions, ingredients: ingredients)
-        var recipeData = ["title": title, "instructions": instructions]
+        let recipeData = ["title": title, "instructions": instructions]
         let recipeRef = db.collection("recipes").document(newRecipe.id)
         
         // Add ingredients as a subcollection to the recipe document
@@ -66,7 +68,7 @@ class RecipeViewModel: ObservableObject {
         }
     }
     
-     func getRecipes() {
+    func getRecipes() {
         db.collection("recipes").getDocuments { snapshot, error in
             if let error = error {
                 print("Error getting documents: \(error)")
@@ -97,6 +99,21 @@ class RecipeViewModel: ObservableObject {
                     }
                     return Recipe(id: id, title: title, instructions: instructions, ingredients: ingredients)
                 } ?? []
+            }
+        }
+
+    }
+    func deleteRecipe(recipe: Recipe) {
+        if let index = recipes.firstIndex(where: { $0.id == recipe.id }) {
+            recipes.remove(at: index) // Ta bort receptet från den lokala listan av recept
+            
+            // Ta bort receptet från Firestore-databasen
+            db.collection("recipes").document(recipe.id).delete { error in
+                if let error = error {
+                    print("Error deleting recipe: \(error.localizedDescription)")
+                } else {
+                    print("Recipe deleted successfully")
+                }
             }
         }
     }
