@@ -10,9 +10,12 @@ import Combine
 import FirebaseFirestore
 
 class PantryViewModel: ObservableObject {
-    @Published var products: [Product] = []
     private var db = Firestore.firestore()
-    private var cancellables = Set<AnyCancellable>()
+    private var listener: ListenerRegistration?
+    
+    @Published var products: [Product] = []
+    @Published var showAlert = false
+    @Published var userInputProduct = Product(name: "", amount: 0, unit: "") // Lägg till userInputProduct här
 
     struct Product: Identifiable, Codable, Equatable {
         var id = UUID()
@@ -26,47 +29,110 @@ class PantryViewModel: ObservableObject {
     }
 
     init() {
-        startListening()
-    }
-
-    func startListening() {
-        db.collection("products").addSnapshotListener { querySnapshot, error in
-            guard let documents = querySnapshot?.documents else {
-                print("Error fetching documents: \(error!)")
-                return
-            }
-            self.products = documents.compactMap { queryDocumentSnapshot in
-                try? queryDocumentSnapshot.data(as: Product.self)
-            }
-        }
-    }
-
-    func addProduct(product: Product) {
-        do {
-            let _ = try db.collection("products").addDocument(from: product)
-        } catch {
-            print("Error adding product: \(error)")
-        }
-    }
-
-    func deleteProduct(product: Product) {
-        db.collection("products").document(product.id.uuidString).delete { error in
-            if let error = error {
-                print("Error deleting product: \(error.localizedDescription)")
-            }
-        }
+        fetchProducts()
     }
     
-    func deleteitem(products: Product) async -> Bool {
-        let db = Firestore.firestore()
-        let productsID = products.id.uuidString // Directly access uuidString property
+    func fetchProducts() {
+        listener = db.collection("products").addSnapshotListener { [weak self] snapshot, error in
+            guard let self = self else { return }
+            
+            if let error = error {
+                print("Error fetching documents: \(error)")
+                return
+            }
+            
+            guard let snapshot = snapshot else {
+                print("Empty snapshot")
+                return
+            }
+            
+            self.products = snapshot.documents.compactMap { queryDocumentSnapshot in
+                do {
+                    let product = try queryDocumentSnapshot.data(as: Product.self)
+                    return product
+                } catch {
+                    print("Error decoding product: \(error)")
+                    return nil
+                }
+            }
+        }
+    }
+
+    func removeSnapshotListener() {
+        listener?.remove()
+    }
+
+    func deleteProduct(at offsets: IndexSet) {
+        for index in offsets {
+            let product = products[index]
+            
+            db.collection("products").whereField("name", isEqualTo: product.name).getDocuments { [weak self] snapshot, error in
+                guard let self = self else { return }
+                
+                if let error = error {
+                    print("Error fetching document: \(error)")
+                    return
+                }
+                
+                guard let documents = snapshot?.documents else {
+                    print("Document not found")
+                    return
+                }
+                
+                for document in documents {
+                    document.reference.delete { error in
+                        if let error = error {
+                            print("Error removing document: \(error)")
+                        } else {
+                            // If deletion from Firestore is successful, remove the product from the products array
+                            DispatchQueue.main.async {
+                                if let indexToRemove = self.products.firstIndex(where: { $0.name == product.name }) {
+                                    self.products.remove(at: indexToRemove)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    func removeProduct(_ product: Product, completion: @escaping (Bool) -> Void) {
+        guard let index = products.firstIndex(where: { $0.id == product.id }) else {
+            completion(false)
+            return
+        }
+
+        let productRef = db.collection("products").document(product.id.uuidString)
+        
+        productRef.delete { error in
+            if let error = error {
+                print("Error removing document: \(error)")
+                completion(false)
+            } else {
+                // Remove the product from the products array
+                DispatchQueue.main.async {
+                    self.products.remove(at: index)
+                    completion(true)
+                }
+            }
+        }
+    }
+
+    func addProduct() {
+        let newProduct = userInputProduct
+        
+        if products.contains(where: { $0.name == newProduct.name }) {
+            showAlert = true
+            return
+        }
+        
         do {
-            let _ = try await db.collection("products").document(productsID).delete()
-            print("🗑️ Document successfully deleted!")
-            return true
+            let _ = try db.collection("products").addDocument(from: newProduct)
+            // Clear input fields after adding the product
+            userInputProduct = Product(name: "", amount: 0, unit: "")
         } catch {
-            print("ERROR: removing document \(error.localizedDescription)")
-            return false
+            print("Error adding product: \(error)")
         }
     }
 }
