@@ -9,8 +9,6 @@ import SwiftUI
 import Firebase
 
 
-//let foodpost = Posts(id: <#String#>, recipe: "hej", ingredience: ["salt", "Ost"], instructions: "koka 10 min")
-
 class getData : ObservableObject {
 
     @Published var datas = [Posts]()

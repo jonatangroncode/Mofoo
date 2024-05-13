@@ -16,12 +16,12 @@ struct AddRecipe: View {
     @State private var recipeInstructions = ""
     @State private var ingredientTitle = ""
     @State private var ingredientAmount = ""
-    @State private var ingredientUnit = "Gram"
     @State private var ingredients = [Ingredient]()
     @ObservedObject var viewModel = RecipeViewModel()
-    var units = ["Gram",  "Mililiter", "Deciliter","Liter", "Antal"]
+    var units = ["Gram",  "Ml", "Msk", "Tsk", "Dl","Liter", "Antal"]
     @State private var selectedUnit = "Gram"
-
+    @State private var showAlert = false // State variable to control the alert
+    
     var body: some View {
         VStack {
      
@@ -30,7 +30,7 @@ struct AddRecipe: View {
                     .fontWeight(.bold)
                 Spacer()
             }
-            TextField("Skriv ditt recept", text: $recipeTitle)
+            TextField("Skriv ditt recept namn", text: $recipeTitle)
 
             HStack {
                 Text("Ingridienser:")
@@ -51,7 +51,7 @@ struct AddRecipe: View {
                 }
                 TextField("Skriv mängden", text: $ingredientAmount)
             }
-            Button("Add Ingredient") {
+            Button("Lägg till ingridiens") {
                 let ingredient = Ingredient(id: UUID().uuidString, title: ingredientTitle, amount: Double(ingredientAmount) ?? 0, unit: selectedUnit)
                 ingredients.append(ingredient)
                 ingredientTitle = ""
@@ -74,15 +74,13 @@ struct AddRecipe: View {
             .frame(height: 250)
 
             HStack {
-                Text("Instruktioner:")
+                Text("Skriv dina Instruktioner här under:")
                     .fontWeight(.bold)
                 Spacer()
             }
             VStack {
                 if recipeInstructions.isEmpty {
-                    Text("Skriv dina instruktioner här")
-                        .foregroundColor(.gray)
-                        .padding(.horizontal)
+                  
                   
                 }
                 TextEditor(text: $recipeInstructions)
@@ -99,8 +97,20 @@ struct AddRecipe: View {
                 ingredientTitle = ""
                 ingredientAmount = ""
                 ingredients = []
+                
+                // Show the alert
+                showAlert = true
             }
-        }.navigationTitle("Add recipe")
+            .padding()
+            .background(Color.blue)
+            .cornerRadius(8)
+            .foregroundColor(.white)
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Recept tillagt"), message: Text("Ditt recept har lagts till!"), dismissButton: .default(Text("OK")))
+            }
+            
+        }.navigationTitle("Lägg till recept")
+            .padding()
 
     }
 }

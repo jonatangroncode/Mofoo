@@ -56,4 +56,17 @@ class PantryViewModel: ObservableObject {
             }
         }
     }
+    
+    func deleteitem(products: Product) async -> Bool {
+        let db = Firestore.firestore()
+        let productsID = products.id.uuidString // Directly access uuidString property
+        do {
+            let _ = try await db.collection("products").document(productsID).delete()
+            print("🗑️ Document successfully deleted!")
+            return true
+        } catch {
+            print("ERROR: removing document \(error.localizedDescription)")
+            return false
+        }
+    }
 }
